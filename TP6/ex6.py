@@ -1,4 +1,5 @@
 import os
+from string import ascii_lowercase
 
 ENGLISH = [8.167, 1.492, 2.782, 4.253, 12.702, 2.228, 2.015, 6.094, 6.966, 0.153, 0.772, 4.025, 2.406, 6.749, 7.507, 1.929, 0.095, 5.987, 6.327, 9.056, 2.758, 0.978, 2.360, 0.150, 1.974, 0.074]
 
@@ -252,8 +253,28 @@ def guess_language(text):
     >>> guess_language("aaaaaaaabcccddddeeeeeeeeeeeeeeeeefghiiiiiiiijlllllmmmnnnnnnnoooooopppqrrrrrrrsssssssstttttttuuuuuuvv")
     'french'
     """
+    text = text.lower().translate(TRTAB).replace(" ","")
+    freq=[]
     
-    return None   
+    for letter in ascii_lowercase:
+        freq.append((text.count(letter)/len(text))*100)
+
+    resultf=0
+    resulta=0
+    resultg=0
+    resulte=0
+
+    for i in range (len(freq)):
+        resultf += abs (freq[i]-FRENCH[i])
+        resulta += abs (freq[i]-ENGLISH[i])
+        resulte += abs (freq[i]-SPANISH[i])
+        resultg += abs (freq[i]-GERMAN[i])
+    m=min(resultg,resulta,resulte,resultf)
+
+    if m==resultf: return "french"
+    if m==resulta: return "english"
+    if m==resulte: return "spanish"
+    if m==resultg: return "german"
 
 def main():
     # votre code de test ici...
@@ -262,6 +283,7 @@ def main():
     scand('C:\Windows')
     l = searchext(['ARJ.PIF', 'atiogl.xml', 'ativpsrm.bin', 'bfsvc.exe'])
     print(l)
+    guess_language("Maître Corbeau, sur un arbre perché")
     pass
 
 if __name__ == '__main__':
