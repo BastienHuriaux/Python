@@ -231,6 +231,7 @@ def searchext(l):
         for j in range (0,len(a)):
             if a[j]=='.': 
                 e.append(a[j+1:len(a)])
+    e = set(e)
     return e
 
 def guess_language(text):
