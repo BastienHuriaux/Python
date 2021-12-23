@@ -86,10 +86,10 @@ class Vector2D(object):
         return Vector2D(Point2D(0,0),Point2D(-self.x,-self.y))
     
     def __add__(self,Vecteur2):
-        return "Vector2D(" + str(self.x+Vecteur2.x) + "," + str(self.y+Vecteur2.y) + ")"
+        return Vector2D(Point2D(0,0),Point2D(self.x+Vecteur2.x,self.y+Vecteur2.y))
     
     def __sub__(self,Vecteur2):
-        return "Vector2D(" + str(self.x-Vecteur2.x) + "," + str(self.y-Vecteur2.y) + ")"
+        return Vector2D(Point2D(0,0),Point2D(self.x-Vecteur2.x,self.y-Vecteur2.y))
     pass
         
 def main():

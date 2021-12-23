@@ -1,4 +1,6 @@
 # vos import ici...
+import csv
+from collections import namedtuple
 
 def build_stations_dict(csvfile):
     """
@@ -21,7 +23,16 @@ def build_stations_dict(csvfile):
     43.648833
     """
     # votre code ici...
-    return {}
+    dic = dict()
+    with open('data/'+csvfile,'r') as f:
+        r = csv.reader(f, delimiter=';')
+        l = list(r)
+        Station = namedtuple('Station', ['ID', 'Latitude', 'Longitude', 'Altitude'])
+        for i in range(1,len(l)):
+            dic[l[i][1]] = Station(l[i][0],float(l[i][2]),float(l[i][3]),int(l[i][4]))
+    return dic
 
 if __name__ == '__main__':
     # votre code de test ici...
+    d = build_stations_dict('stations-meteo.csv')
+    print(d['NICE'])

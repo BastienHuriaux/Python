@@ -12,6 +12,7 @@ def est_dans(mot, ensemble):
         str : la vérité de "mot" est dans "l'ensemble"
     """
     # votre code ici
+    
     return None
 
 def read_file(filename):

@@ -1,4 +1,5 @@
 # Vos import ici...
+from zipfile import ZipFile, is_zipfile
 
 ARCHIVE = 'meteofrance2014.zip'
 
@@ -30,8 +31,31 @@ def extract_temp(date, code):
     """
     
     # votre code ici...
+    fichier = "synop."+str(date[0:6])+".csv"
+
+    zip = ZipFile("data/"+ARCHIVE)
+
+    test = fichier in ZipFile.namelist(zip)
+    if test == False:
+        return []
     
-    return []
+    data = zip.read(fichier).decode('utf8')
+
+    l = data.split()
+
+    temps = []
+
+    for i in range (1,len(l)):
+        a = l[i].split(";")
+        if a[0] == code and a[1][0:8] == date:
+            temp = float(a[7])-273.15
+            temps.append(round(temp, 1))
+    return temps
+
+def main():
+    print(extract_temp('20150703','89642'))
+    return
     
 if __name__ == '__main__':
     # ... votre code de test ici
+    main()
